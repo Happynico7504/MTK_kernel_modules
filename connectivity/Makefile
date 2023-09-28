@@ -1,13 +1,13 @@
-obj-y        += connectivity/common/
+obj-y        += common/
 
-obj-y        += connectivity/bt/
+obj-y        += bt/
 
-obj-y        += connectivity/connfem/
+obj-y        += connfem/
 
-obj-y        += connectivity/conninfra
+obj-y        += conninfra/
 
-obj-y        += connectivity/bt/fmradio
+obj-y        += fmradio/
 
-obj-y        += connectivity/bt/gps
+obj-y        += gps/
 
-obj-y        += connectivity/bt/wlan
+obj-y        += wlan/
