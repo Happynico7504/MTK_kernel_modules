@@ -18,9 +18,9 @@
 #include <linux/time.h>
 #include <linux/sched.h>
 #include <asm/div64.h>
-#include "osal_typedef.h"
-#include "stp_exp.h"
-#include "wmt_exp.h"
+#include "../../common/common_main/linux/include/osal_typedef.h"
+#include "../../common/common_main/include/stp_exp.h"
+#include "../../common/common_main/include/wmt_exp.h"
 #include <connectivity_build_in_adapter.h>
 #include <linux/of.h>
 #if defined(CONFIG_MACH_MT6580)
