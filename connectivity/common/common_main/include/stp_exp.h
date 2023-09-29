@@ -20,7 +20,7 @@
 #ifndef _STP_EXP_H_
 #define _STP_EXP_H_
 
-#include "osal.h"
+#include "../linux/include/osal.h"
 
 /*******************************************************************************
 *                         C O M P I L E R   F L A G S
