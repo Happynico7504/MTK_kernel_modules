@@ -8,6 +8,6 @@ obj-y        += conninfra/
 
 obj-n        += fmradio/
 
-obj-n        += gps/
+obj-y        += gps/
 
 obj-y        += wlan/
