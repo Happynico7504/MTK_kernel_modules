@@ -10,7 +10,7 @@
 #include "../../common/common_main/core/include/wmt_core.h"
 #include "../../common/common_main/linux/include/wmt_dev.h"
 #include "../../common/common_main/linux/include/osal.h"
-#include "../../common/common_main/include/mtk_wcn_consys_hw.h"
+#include "../../common/common_main/platform/include/mtk_wcn_consys_hw.h"
 
 #ifdef MTK_GENERIC_HAL
 #define GPS_FWCTL_SUPPORT
