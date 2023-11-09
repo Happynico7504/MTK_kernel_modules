@@ -28,7 +28,7 @@
 #endif
 #include <linux/wait.h>
 #include "gps.h"
-#include "connsys_debug_utility.h"
+#include "../../common/debug_utility/connsys_debug_utility.h"
 #ifdef pr_fmt
 #undef pr_fmt
 #endif
