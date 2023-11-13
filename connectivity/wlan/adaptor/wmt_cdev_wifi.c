@@ -36,8 +36,8 @@
 #if (CFG_ANDORID_CONNINFRA_SUPPORT == 1)
 #include "wifi_pwr_on.h"
 #else
-#include "../../connectivity/common/common_main/include/wmt_exp.h"
-#include "../../connectivity/common/common_main/include/stp_exp.h"
+#include "../../common/common_main/include/wmt_exp.h"
+#include "../../common/common_main/include/stp_exp.h"
 #endif
 MODULE_LICENSE("Dual BSD/GPL");
 
