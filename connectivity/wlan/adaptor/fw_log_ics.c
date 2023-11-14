@@ -22,8 +22,8 @@
 #include <linux/netdevice.h>
 #include <linux/inetdevice.h>
 #include <linux/string.h>
-#include "fw_log_ics.h"
-#include "wlan_ring.h"
+#include "include/fw_log_ics.h"
+#include "include/wlan_ring.h"
 
 MODULE_LICENSE("Dual BSD/GPL");
 
