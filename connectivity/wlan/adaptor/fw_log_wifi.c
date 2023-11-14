@@ -32,7 +32,7 @@
 #include <linux/string.h>
 #include <linux/workqueue.h>
 
-#include "connsys_debug_utility.h"
+#include "../../common/debug_utility/connsys_debug_utility.h"
 
 #if (CFG_ANDORID_CONNINFRA_SUPPORT == 1)
 #include "fw_log_wifi.h"
