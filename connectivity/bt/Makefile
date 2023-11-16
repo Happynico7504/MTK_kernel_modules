@@ -1,3 +1,3 @@
-obj-n        += mt66xx/
+obj-m        += mt66xx/
 
-obj-n        += mt76xx/sdio/
+obj-m        += mt76xx/sdio/
