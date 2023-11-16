@@ -1,13 +1,13 @@
-obj-y        += common/
+obj-m        += common/
 
-obj-y        += bt/
+obj-m        += bt/
 
-obj-y        += connfem/
+obj-m        += connfem/
 
-obj-y        += conninfra/
+obj-m        += conninfra/
 
 obj-n        += fmradio/
 
-obj-y        += gps/
+obj-m        += gps/
 
-obj-y        += wlan/
+obj-m        += wlan/
