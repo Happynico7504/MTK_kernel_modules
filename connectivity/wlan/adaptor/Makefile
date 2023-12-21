@@ -18,7 +18,7 @@ ccflags-y += \
     -I$(TOP)/drivers/misc/nicochristmann/kernelmodules/connectivity/common/common_main/linux/include
 
 ifeq ($(CONNAC_VER), 2_0)
-ccflags-y += -I$(TOP)/connectivity/conninfra/include
+ccflags-y += -I$(TOP)/drivers/misc/nicochristmann/kernelmodules/connectivity/conninfra/include
 ccflags-y += -I$(TOP)/drivers/misc/nicochristmann/kernelmodules/connectivity/conninfra/debug_utility
 ccflags-y += -I$(TOP)/drivers/misc/nicochristmann/kernelmodules/connectivity/conninfra/debug_utility/include
 ccflags-y += -I$(TOP)/drivers/misc/nicochristmann/kernelmodules/connectivity/conninfra/debug_utility/connsyslog
