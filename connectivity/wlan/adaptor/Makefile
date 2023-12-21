@@ -14,15 +14,15 @@ KBUILD_MODPOST_FAIL_ON_WARNINGS := y
 
 ccflags-y += \
     -I$(srctree)/drivers/misc/mediatek/include/mt-plat \
-    -I$(TOP)/vendor/mediatek/kernel_modules/connectivity/common/common_main/include \
-    -I$(TOP)/vendor/mediatek/kernel_modules/connectivity/common/common_main/linux/include
+    -I$(TOP)/drivers/misc/nicochristmann/kernelmodules/connectivity/common/common_main/include \
+    -I$(TOP)/drivers/misc/nicochristmann/kernelmodules/connectivity/common/common_main/linux/include
 
 ifeq ($(CONNAC_VER), 2_0)
-ccflags-y += -I$(TOP)/vendor/mediatek/kernel_modules/connectivity/conninfra/include
-ccflags-y += -I$(TOP)/vendor/mediatek/kernel_modules/connectivity/conninfra/debug_utility
-ccflags-y += -I$(TOP)/vendor/mediatek/kernel_modules/connectivity/conninfra/debug_utility/include
-ccflags-y += -I$(TOP)/vendor/mediatek/kernel_modules/connectivity/conninfra/debug_utility/connsyslog
-ccflags-y += -I$(TOP)/vendor/mediatek/kernel_modules/connectivity/conninfra/debug_utility/coredump
+ccflags-y += -I$(TOP)/connectivity/conninfra/include
+ccflags-y += -I$(TOP)/drivers/misc/nicochristmann/kernelmodules/connectivity/conninfra/debug_utility
+ccflags-y += -I$(TOP)/drivers/misc/nicochristmann/kernelmodules/connectivity/conninfra/debug_utility/include
+ccflags-y += -I$(TOP)/drivers/misc/nicochristmann/kernelmodules/connectivity/conninfra/debug_utility/connsyslog
+ccflags-y += -I$(TOP)/drivers/misc/nicochristmann/kernelmodules/connectivity/conninfra/debug_utility/coredump
 endif
 
 ifneq ($(CONFIG_MTK_CONNSYS_DEDICATED_LOG_PATH),)
