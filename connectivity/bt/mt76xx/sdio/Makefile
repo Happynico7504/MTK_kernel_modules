@@ -9,7 +9,7 @@
 # endif
 
 ccflags-y += -imacros /include/generated/autoconf.h
-ccflags-y += -DCONFIG_MP_WAKEUP_SOURCE_SYSFS_STAT
+ccflags-n += -DCONFIG_MP_WAKEUP_SOURCE_SYSFS_STAT
 
 MODULE_NAME := btmtksdio
 obj-m += $(MODULE_NAME).o
