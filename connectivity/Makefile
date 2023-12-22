@@ -6,7 +6,7 @@ obj-m        += connfem/
 
 obj-m        += conninfra/
 
-obj-m        += fmradio/
+obj-n        += fmradio/
 
 obj-m        += gps/
 
