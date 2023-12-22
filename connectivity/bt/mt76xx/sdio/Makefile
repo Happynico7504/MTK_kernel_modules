@@ -8,7 +8,7 @@
 #     $(error AUTOCONF_H is not defined)
 # endif
 
-ccflags-y += -imacros /include/generated/autoconf.h
+ccflags-y += -imacros include/generated/autoconf.h
 ccflags-n += -DCONFIG_MP_WAKEUP_SOURCE_SYSFS_STAT
 
 MODULE_NAME := btmtksdio
