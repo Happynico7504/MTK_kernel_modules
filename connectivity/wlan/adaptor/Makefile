@@ -9,6 +9,8 @@ ifndef TOP
     TOP := $(srctree)/..
 endif
 
+MODULE_NAME := wlan_drv
+
 # Force build fail on modpost warning
 KBUILD_MODPOST_FAIL_ON_WARNINGS := y
 
