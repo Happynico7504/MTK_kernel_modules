@@ -1,5 +1,5 @@
 obj-m        += connectivity/
-obj-m        += fpsgo_cus/
+obj-n        += fpsgo_cus/
 obj-n        += gpu/
 obj-n        += met_drv/4.14/
 obj-m        += met_drv_v2/
