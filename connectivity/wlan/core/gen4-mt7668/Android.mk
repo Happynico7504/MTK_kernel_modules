@@ -34,7 +34,7 @@ $(linked_module): OPTS += $(WIFI_OPTS)
 #LOCAL_EXPORT_SYMBOL := $(intermediates)/LINKED/Module.symvers
 #$(LOCAL_EXPORT_SYMBOL): $(intermediates)/LINKED/% : $(LOCAL_SRC_EXPORT_SYMBOL)
 #	$(copy-file-to-target)
-#$(linked_module): $(LOCAL_EXPORT_SYMBOL) $(LOCAL_SRC_EXPORT_SYMBOL) $(AUTO_CONF) $(AUTOCONF_H)
+#$(linked_module): $(LOCAL_EXPORT_SYMBOL) $(LOCAL_SRC_EXPORT_SYMBOL) $(AUTO_CONF) include/generated/autoconf.h
 endif
 endif
 endif
