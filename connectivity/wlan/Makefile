@@ -1,3 +1,3 @@
 obj-m        += adaptor/
 
-obj-n        += core/
+obj-m        += core/
