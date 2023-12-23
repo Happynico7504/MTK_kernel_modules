@@ -52,7 +52,7 @@ endif
 ###############################################################################
 # To include BT driver dependent header file
 
-WMT_SRC_FOLDER := $(TOP)/drivers/misc/nicochristmann/kernelmodules/connectivity/common
+WMT_SRC_FOLDER := drivers/misc/nicochristmann/kernelmodules/connectivity/common
 ccflags-y += -I$(WMT_SRC_FOLDER)/common_main/include
 ccflags-y += -I$(WMT_SRC_FOLDER)/common_main/linux/include
 ifneq ($(CONFIG_MTK_CONNSYS_DEDICATED_LOG_PATH),)
