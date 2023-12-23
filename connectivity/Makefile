@@ -10,4 +10,4 @@ obj-n        += fmradio/
 
 obj-m        += gps/
 
-obj-m        += wlan/
+obj-n        += wlan/
