@@ -4,9 +4,9 @@
 ###############################################################################
 # Necessary Check
 
-ifneq ($(KERNEL_OUT),)
+# ifneq ($(KERNEL_OUT),)
     ccflags-y += -imacros include/generated/autoconf.h
-endif
+# endif
 
 ifndef TOP
     TOP := $(srctree)/..
