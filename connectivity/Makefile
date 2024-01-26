@@ -4,10 +4,10 @@ obj-m        += bt/
 
 obj-m        += connfem/
 
-obj-n        += conninfra/
+obj-m        += conninfra/
 
-obj-n        += fmradio/
+obj-m        += fmradio/
 
 obj-m        += gps/
 
-obj-n        += wlan/
+obj-m        += wlan/
