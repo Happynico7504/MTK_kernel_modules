@@ -2,7 +2,7 @@ MTK_PLATFORM := $(subst ",,$(CONFIG_MTK_PLATFORM))
 ###############################################################################
 # Necessary Check
 
-ccflags-y += -imacros /home/runner/work/Xiaomi_Kernel_OpenSource/Xiaomi_Kernel_OpenSource/include/generated/autoconf.h
+ccflags-y += -imacros /home/runner/work/Xiaomi_Kernel_OpenSource/Xiaomi_Kernel_OpenSource/buildcache/include/generated/autoconf.h
 
 # Force build fail on modpost warning
 KBUILD_MODPOST_FAIL_ON_WARNINGS := n
