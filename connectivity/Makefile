@@ -4,7 +4,7 @@ obj-m        += bt/
 
 obj-m        += connfem/
 
-obj-n        += conninfra/
+obj-m        += conninfra/
 
 obj-n        += fmradio/
 
