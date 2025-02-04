@@ -17,7 +17,7 @@ else
 WLAN_CHIP_ID=MT6630
 endif
 
-ccflags-y += -DLINUX -D$(WLAN_CHIP_ID)
+ccflags-y += -D$(WLAN_CHIP_ID)
 
 ccflags-y += -DCFG_SUPPORT_DEBUG_FS=0
 ccflags-y += -DWLAN_INCLUDE_PROC
