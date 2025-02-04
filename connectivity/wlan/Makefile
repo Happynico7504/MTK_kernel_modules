@@ -1,3 +1,3 @@
-obj-m        += adaptor/Android.mk
+obj-m        += adaptor/
 
 obj-n        += core/
