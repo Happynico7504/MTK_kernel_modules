@@ -1,4 +1,4 @@
-include $(call my-dir)/Android.mk
+include Android.mk
 
 ###############################################################################
 # Necessary Check
