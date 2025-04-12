@@ -846,8 +846,9 @@ int consys_hw_init(struct conninfra_dev_cb *dev_cb)
 		pr_err("Conninfra platform driver registered failed(%d)\n", iRet);
 	else {
 		if (atomic_read(&g_hw_init_done) == 0) {
-            pr_warn("conninfra: Skipping wait for g_hw_init_done (no DT?)");
-            atomic_set(&g_hw_init_done, 1);  // fake init done
+			pr_warn(retry);
+                        pr_warn("conninfra: Skipping wait for g_hw_init_done (no DT?)");
+                        atomic_set(&g_hw_init_done, 1);  // fake init done
                 }
 	}
 
