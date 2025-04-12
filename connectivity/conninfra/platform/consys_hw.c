@@ -845,12 +845,10 @@ int consys_hw_init(struct conninfra_dev_cb *dev_cb)
 	if (iRet)
 		pr_err("Conninfra platform driver registered failed(%d)\n", iRet);
 	else {
-		while (atomic_read(&g_hw_init_done) == 0) {
-			osal_sleep_ms(50);
-			retry++;
-			if (__ratelimit(&_rs))
-				pr_info("g_hw_init_done = 0, retry = %d", retry);
-		}
+		if (atomic_read(&g_hw_init_done) == 0) {
+            pr_warn("conninfra: Skipping wait for g_hw_init_done (no DT?)");
+            atomic_set(&g_hw_init_done, 1);  // fake init done
+                }
 	}
 
 	conninfra_get_phy_addr(&emi_addr, &emi_size);
