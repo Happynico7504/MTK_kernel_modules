@@ -31,6 +31,26 @@
 
 #include <linux/ratelimit.h>
 
+// added to suppress modprobe hang
+
+#include <linux/init.h>
+
+static int __init conninfra_mod_init(void)
+{
+    pr_info("conninfra_mod_init: dummy init (suppress hang)\n");
+    return 0; // success
+}
+
+static void __exit conninfra_mod_exit(void)
+{
+    pr_info("conninfra_mod_exit: dummy cleanup\n");
+}
+
+module_init(conninfra_mod_init);
+module_exit(conninfra_mod_exit);
+
+// the above logic should prevent modprobe from hanging
+
 /*******************************************************************************
 *                         C O M P I L E R   F L A G S
 ********************************************************************************
