@@ -1102,14 +1102,7 @@ extern int connsys_log_init(void);
 * RETURNS
 *  int    0=success, others=error
 *****************************************************************************/
-int connsys_log_deinit(int conn_type)
-{
-	if (conn_type >= CONNLOG_TYPE_END || conn_type < 0)
-		return -1;
-	event_callback_table[conn_type] = 0x0;
-	return 0;
-}
-EXPORT_SYMBOL(connsys_log_deinit);
+extern int connsys_log_deinit(int conn_type)
 
 /*****************************************************************************
 * FUNCTION
