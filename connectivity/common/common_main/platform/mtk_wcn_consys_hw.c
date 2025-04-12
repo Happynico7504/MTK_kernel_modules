@@ -88,8 +88,7 @@ P_WMT_CONSYS_IC_OPS wmt_consys_ic_ops;
 struct platform_device *g_pdev;
 
 #ifdef ALLOCATE_CONNSYS_EMI_FROM_KO
-phys_addr_t gConEmiPhyBase;
-EXPORT_SYMBOL(gConEmiPhyBase);
+extern phys_addr_t gConEmiPhyBase;
 extern unsigned long long gConEmiSize;
 #endif
 
