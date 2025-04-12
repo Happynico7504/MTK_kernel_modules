@@ -1079,13 +1079,7 @@ EXPORT_SYMBOL(connsys_dedicated_log_path_apsoc_init);
 * RETURNS
 *  void
 *****************************************************************************/
-void connsys_dedicated_log_path_apsoc_deinit(void)
-{
-	connlog_emi_deinit();
-	connlog_eirq_deinit();
-	connlog_ring_buffer_deinit();
-}
-EXPORT_SYMBOL(connsys_dedicated_log_path_apsoc_deinit);
+extern void connsys_dedicated_log_path_apsoc_deinit(void);
 
 /*****************************************************************************
 * FUNCTION
@@ -1097,12 +1091,7 @@ EXPORT_SYMBOL(connsys_dedicated_log_path_apsoc_deinit);
 * RETURNS
 *  int    0=success, others=error
 *****************************************************************************/
-int connsys_log_init(int conn_type)
-{
-	return 0;
-}
-EXPORT_SYMBOL(connsys_log_init);
-
+extern int connsys_log_init(void);
 /*****************************************************************************
 * FUNCTION
 *  connsys_log_deinit
