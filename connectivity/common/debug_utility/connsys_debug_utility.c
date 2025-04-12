@@ -108,11 +108,8 @@ static size_t cache_size_table[CONNLOG_TYPE_END];
 ********************************************************************************
 */
 static int connlog_eirq_init(const struct connlog_irq_config *irq_config);
-static void connlog_eirq_deinit(void);
 static int connlog_emi_init(phys_addr_t emi_base, const struct connlog_emi_config *emi_config);
-static void connlog_emi_deinit(void);
 static int connlog_ring_buffer_init(void);
-static void connlog_ring_buffer_deinit(void);
 static int connlog_set_ring_buffer_base_addr(void);
 static irqreturn_t connlog_eirq_isr(int irq, void *arg);
 static void connlog_set_ring_ready(void);
@@ -829,10 +826,6 @@ static int connlog_eirq_init(const struct connlog_irq_config *irq_config)
 * RETURNS
 *  void
 *****************************************************************************/
-static void connlog_eirq_deinit(void)
-{
-	free_irq(gDev.conn2ApIrqId, NULL);
-}
 
 /*****************************************************************************
 * FUNCTION
@@ -952,10 +945,6 @@ static int connlog_emi_init(phys_addr_t emi_base, const struct connlog_emi_confi
 * RETURNS
 *  void
 *****************************************************************************/
-static void connlog_emi_deinit(void)
-{
-	iounmap(gDev.virAddrEmiLogBase);
-}
 
 /*****************************************************************************
 * FUNCTION
@@ -1001,17 +990,6 @@ static int connlog_ring_buffer_init(void)
 * RETURNS
 *  void
 *****************************************************************************/
-static void connlog_ring_buffer_deinit(void)
-{
-	int i = 0;
-
-	for (i = 0; i < CONNLOG_TYPE_END; i++) {
-		kvfree(connlog_buffer_table[i].cache_base);
-		connlog_buffer_table[i].cache_base = NULL;
-	}
-	kvfree(gDev.log_data);
-	gDev.log_data = NULL;
-}
 
 /*****************************************************************************
 * FUNCTION
