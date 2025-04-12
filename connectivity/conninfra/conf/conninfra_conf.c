@@ -14,7 +14,7 @@
 #define pr_fmt(fmt) KBUILD_MODNAME "@(%s:%d) " fmt, __func__, __LINE__
 
 #include <linux/firmware.h>
-#include "conninfra_conf.h"
+// #include "conninfra_conf.h"
 
 /*******************************************************************************
 *                         D A T A   T Y P E S
