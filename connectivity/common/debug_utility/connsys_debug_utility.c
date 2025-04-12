@@ -1091,7 +1091,7 @@ extern void connsys_dedicated_log_path_apsoc_deinit(void);
 * RETURNS
 *  int    0=success, others=error
 *****************************************************************************/
-extern int connsys_log_init(void);
+extern int connsys_log_init(int conn_type);
 /*****************************************************************************
 * FUNCTION
 *  connsys_log_deinit
@@ -1102,7 +1102,7 @@ extern int connsys_log_init(void);
 * RETURNS
 *  int    0=success, others=error
 *****************************************************************************/
-extern int connsys_log_deinit(int conn_type)
+extern int connsys_log_deinit(int conn_type);
 
 /*****************************************************************************
 * FUNCTION
@@ -1114,7 +1114,7 @@ extern int connsys_log_deinit(int conn_type)
 * RETURNS
 *  unsigned int    Ring buffer unread size
 *****************************************************************************/
-extern unsigned int connsys_log_get_buf_size(int conn_type)
+extern unsigned int connsys_log_get_buf_size(int conn_type);
 
 /*****************************************************************************
 * FUNCTION
@@ -1127,7 +1127,7 @@ extern unsigned int connsys_log_get_buf_size(int conn_type)
 * RETURNS
 *  int    0=success, others=error
 *****************************************************************************/
-extern int connsys_log_register_event_cb(int conn_type, CONNLOG_EVENT_CB func)
+extern int connsys_log_register_event_cb(int conn_type, CONNLOG_EVENT_CB func);
 
 /*****************************************************************************
 * FUNCTION
@@ -1141,7 +1141,7 @@ extern int connsys_log_register_event_cb(int conn_type, CONNLOG_EVENT_CB func)
 * RETURNS
 *  ssize_t    read buffer size
 *****************************************************************************/
-extern ssize_t connsys_log_read(int conn_type, char *buf, size_t count)
+extern ssize_t connsys_log_read(int conn_type, char *buf, size_t count);
 
 /*****************************************************************************
 * FUNCTION
@@ -1155,7 +1155,7 @@ extern ssize_t connsys_log_read(int conn_type, char *buf, size_t count)
 * RETURNS
 *  ssize_t    read buffer size
 *****************************************************************************/
-extern ssize_t connsys_log_read_to_user(int conn_type, char __user *buf, size_t count)
+extern ssize_t connsys_log_read_to_user(int conn_type, char __user *buf, size_t count);
 
 
 /*****************************************************************************
