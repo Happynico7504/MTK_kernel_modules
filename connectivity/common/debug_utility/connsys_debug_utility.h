@@ -62,7 +62,6 @@ struct connlog_irq_config {
 */
 
 /* Common Driver API */
-
 void connsys_dedicated_log_path_apsoc_deinit(void);
 void __iomem *connsys_log_get_emi_log_base_vir_addr(void);
 void connsys_dedicated_log_get_utc_time(unsigned int *second, unsigned int *usecond);
