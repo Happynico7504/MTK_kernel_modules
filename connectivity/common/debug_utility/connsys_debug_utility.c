@@ -1004,10 +1004,7 @@ static int connlog_ring_buffer_init(void)
 * RETURNS
 *  void
 *****************************************************************************/
-extern int connsys_dedicated_log_path_apsoc_init(
-	phys_addr_t emi_base,
-	const struct connlog_emi_config *emi_config,
-	const struct connlog_irq_config *irq_config)
+extern int connsys_dedicated_log_path_apsoc_init(phys_addr_t emiaddr, const struct connlog_emi_config* config)
 
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 15, 0))
 	timer_setup(&gDev.workTimer, work_timer_handler, 0);
