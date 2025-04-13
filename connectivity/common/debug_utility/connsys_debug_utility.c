@@ -1044,7 +1044,6 @@ int connsys_dedicated_log_path_apsoc_init(
 	connlog_alarm_init();
 	return 0;
 }
-EXPORT_SYMBOL(connsys_dedicated_log_path_apsoc_init);
 
 /*****************************************************************************
 * FUNCTION
