@@ -1004,28 +1004,10 @@ static int connlog_ring_buffer_init(void)
 * RETURNS
 *  void
 *****************************************************************************/
-int connsys_dedicated_log_path_apsoc_init(
+extern int connsys_dedicated_log_path_apsoc_init(
 	phys_addr_t emi_base,
 	const struct connlog_emi_config *emi_config,
 	const struct connlog_irq_config *irq_config)
-{
-	gDev.phyAddrEmiBase = 0;
-	gDev.virAddrEmiLogBase = 0;
-	gDev.conn2ApIrqId = 0;
-	gDev.eirqOn = false;
-	gDev.irq_counter = 0;
-	gDev.irq_callback = NULL;
-	memset(&gDev.emi_config, 0, sizeof(struct connlog_emi_config));
-
-	if (connlog_emi_init(emi_base, emi_config)) {
-		pr_err("EMI init failed\n");
-		return -1;
-	}
-
-	if (connlog_ring_buffer_init()) {
-		pr_err("Ring buffer init failed\n");
-		return -2;
-	}
 
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 15, 0))
 	timer_setup(&gDev.workTimer, work_timer_handler, 0);
