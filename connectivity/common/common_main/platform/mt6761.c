@@ -1283,7 +1283,7 @@ static INT32 consys_dedicated_log_path_init(struct platform_device *pdev)
 	irq_config.irq_flag = irq_flag;
 	irq_config.irq_callback = NULL;
 
-	extern connsys_dedicated_log_path_apsoc_init(
+	connsys_dedicated_log_path_apsoc_init(
 		gConEmiPhyBase, &connsys_fw_log_parameter, &irq_config);
 #ifdef CONFIG_MTK_CONNSYS_DEDICATED_LOG_PATH
 	fw_log_wmt_init();
