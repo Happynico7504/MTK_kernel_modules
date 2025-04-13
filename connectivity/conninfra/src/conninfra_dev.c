@@ -618,81 +618,11 @@ static void conninfra_register_power_throttling_callback(void)
 }
 
 /************************************************************************/
+
 static int conninfra_dev_do_drv_init()
 {
-	static int init_done = 0;
-	int iret = 0;
-
-	if (init_done) {
-		pr_info("%s already init, return.", __func__);
-		return 0;
-	}
-	init_done = 1;
-
-#ifdef CFG_CONNINFRA_UT_SUPPORT
-	iret = conninfra_test_setup();
-	if (iret)
-		pr_err("init conninfra_test fail, ret = %d\n", iret);
-#endif
-
-	iret = conninfra_conf_init();
-	if (iret)
-		pr_warn("init conf fail\n");
-
-	iret = consys_hw_init(&g_conninfra_dev_cb);
-	if (iret) {
-		pr_err("init consys_hw fail, ret = %d\n", iret);
-		g_conninfra_init_status = CONNINFRA_INIT_NOT_START;
-		return -2;
-	}
-
-	iret = conninfra_core_init();
-	if (iret) {
-		pr_err("conninfra init fail");
-		g_conninfra_init_status = CONNINFRA_INIT_NOT_START;
-		return -3;
-	}
-
-	conninfra_dev_dbg_init();
-
-	wmt_export_platform_bridge_register(&g_plat_bridge);
-
-	/* init power on off handler */
-	INIT_WORK(&gPwrOnOffWork, conninfra_dev_pwr_on_off_handler);
-	conninfra_fb_notifier.notifier_call
-				= conninfra_dev_fb_notifier_callback;
-
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(5, 10, 0))
-#if IS_ENABLED(CONFIG_DRM_MEDIATEK)
-	iret = mtk_disp_notifier_register("conninfra_driver", &conninfra_fb_notifier);
-#endif
-#else
-	iret = fb_register_client(&conninfra_fb_notifier);
-#endif
-	if (iret)
-		pr_info("register fb_notifier fail");
-	else
-		pr_info("register fb_notifier success");
-
-#if IS_ENABLED(CONFIG_MTK_DEVAPC)
-	conninfra_register_devapc_callback();
-#endif
-	conninfra_register_pmic_callback();
-	conninfra_register_thermal_callback();
-	conninfra_register_power_throttling_callback();
-
-	pr_info("ConnInfra Dev: init (%d)\n", iret);
-	g_conninfra_init_status = CONNINFRA_INIT_DONE;
-
-#ifdef MTK_WCN_REMOVE_KERNEL_MODULE
-	iret = (int)consys_hw_chipid_get();
-	iret = do_connectivity_driver_init(iret);
-	if (iret)
-		pr_err("Sub driver init fail, iret=%d", iret);
-#endif
-
-	return 0;
-
+    pr_info("Skip conninfra_dev_do_drv_init()");
+    return 0;
 }
 
 
