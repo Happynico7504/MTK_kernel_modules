@@ -1004,7 +1004,7 @@ static int connlog_ring_buffer_init(void)
 * RETURNS
 *  void
 *****************************************************************************/
-extern int connsys_dedicated_log_path_apsoc_init(phys_addr_t emiaddr, const struct connlog_emi_config* config)
+extern int connsys_dedicated_log_path_apsoc_init(phys_addr_t emiaddr, const struct connlog_emi_config* config);
 
 /*****************************************************************************
 * FUNCTION
