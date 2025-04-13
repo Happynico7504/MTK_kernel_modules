@@ -1006,24 +1006,6 @@ static int connlog_ring_buffer_init(void)
 *****************************************************************************/
 extern int connsys_dedicated_log_path_apsoc_init(phys_addr_t emiaddr, const struct connlog_emi_config* config)
 
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 15, 0))
-	timer_setup(&gDev.workTimer, work_timer_handler, 0);
-#else
-	init_timer(&gDev.workTimer);
-#endif
-	gDev.workTimer.function = work_timer_handler;
-	spin_lock_init(&gDev.irq_lock);
-	INIT_WORK(&gDev.logDataWorker, connlog_log_data_handler);
-	if (connlog_eirq_init(irq_config)) {
-		pr_err("EIRQ init failed\n");
-		return -3;
-	}
-
-	/* alarm_timer */
-	connlog_alarm_init();
-	return 0;
-}
-
 /*****************************************************************************
 * FUNCTION
 *  connsys_dedicated_log_path_apsoc_deinit
