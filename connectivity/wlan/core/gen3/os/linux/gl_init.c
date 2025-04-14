@@ -3006,7 +3006,18 @@ EXPORT_SYMBOL(mtk_wcn_wlan_gen3_exit);
 
 #else
 
-module_init(initWlan);
+extern int (*mtk_wlan_probe_function)(struct platform_device *pdev);
+extern int wlanProbe(struct platform_device *pdev);
+
+static int __init wlan_drv_gen3_init(void)
+{
+    mtk_wlan_probe_function = wlanProbe;
+
+    pr_info("wlan_drv_gen3: manually registered wlanProbe()\n");
+    return 0;
+}
+
+module_init(wlan_drv_gen3_init);
 module_exit(exitWlan);
 
 #endif
