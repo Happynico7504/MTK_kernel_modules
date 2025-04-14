@@ -527,7 +527,7 @@ ssize_t WIFI_write(struct file *filp, const char __user *buf, size_t count, loff
 			if (powered == 0) {
 				powered = 1;
 				WIFI_INFO_FUNC("WMT turn on WIFI success!\n");
-				wlan_mode = WLAN_MODE_HALT
+				wlan_mode = WLAN_MODE_HALT;
 			}
 
 			if (pf_set_p2p_mode == NULL) {
