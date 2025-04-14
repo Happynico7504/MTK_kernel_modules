@@ -3006,8 +3006,9 @@ EXPORT_SYMBOL(mtk_wcn_wlan_gen3_exit);
 
 #else
 
-extern int (*mtk_wlan_probe_function)(struct platform_device *pdev);
-extern int wlanProbe(struct platform_device *pdev);
+extern int (*mtk_wlan_probe_function)(PVOID);
+extern INT_32 wlanProbe(PVOID pvData);
+
 
 static int __init wlan_drv_gen3_init(void)
 {
