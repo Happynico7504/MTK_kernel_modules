@@ -113,6 +113,7 @@ int mtk_wcn_wlan_reg(struct MTK_WCN_WLAN_CB_INFO *pWlanCbInfo)
 	return 0;
 }
 EXPORT_SYMBOL(mtk_wcn_wlan_reg);
+EXPORT_SYMBOL(mtk_wlan_probe_function);
 
 int mtk_wcn_wlan_unreg(void)
 {
