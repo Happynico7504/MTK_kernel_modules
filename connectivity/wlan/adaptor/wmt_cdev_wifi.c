@@ -453,6 +453,7 @@ ssize_t WIFI_write(struct file *filp, const char __user *buf, size_t count, loff
 		
 		        if (local[0] == '1') {
 			write_processing = 1;
+			}
 			if (powered == 1) {
 				WIFI_INFO_FUNC("WIFI is already power on!\n");
 				retval = count;
@@ -462,7 +463,7 @@ ssize_t WIFI_write(struct file *filp, const char __user *buf, size_t count, loff
 				retval = count;
 				WIFI_INFO_FUNC("WMT turn on WIFI success!\n");
 				wlan_mode = WLAN_MODE_HALT;
-				
+			        
 		} else if (!strncmp(local, "WR-BUF:", 7)) {
 			file_buf_handler handler = NULL;
 			void *ctx = NULL;
