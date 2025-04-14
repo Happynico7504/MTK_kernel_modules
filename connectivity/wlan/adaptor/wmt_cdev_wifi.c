@@ -328,13 +328,8 @@ int32_t wifi_reset_end(enum ENUM_RESET_STATUS status)
 			 * if this flag is TRUE, mtk_wland_thread_main will not do power on again.
 			 * Set this flag to FALSE to finish the reset procedure
 			 */
-			g_fgIsWiFiOn = MTK_WCN_BOOL_FALSE;
-			if (mtk_wcn_wlan_func_ctrl(WLAN_OPID_FUNC_ON) == MTK_WCN_BOOL_FALSE) {
-				WIFI_ERR_FUNC("WMT turn on WIFI fail!\n");
-				goto done;
-			} else {
-				WIFI_INFO_FUNC("WMT turn on WIFI success!\n");
-			}
+			
+		        WIFI_INFO_FUNC("WMT turn on WIFI success!\n");
 
 			if (pf_set_p2p_mode == NULL) {
 				WIFI_ERR_FUNC("Set p2p mode handler is NULL\n");
