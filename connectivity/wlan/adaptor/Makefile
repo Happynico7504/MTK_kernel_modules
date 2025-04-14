@@ -19,13 +19,12 @@ ccflags-y += \
     -I$(TOP)/drivers/misc/nicochristmann/kernelmodules/connectivity/common/common_main/include \
     -I$(TOP)/drivers/misc/nicochristmann/kernelmodules/connectivity/common/common_main/linux/include
 
-ifeq ($(CONNAC_VER), 2_0)
 ccflags-y += -I$(TOP)/drivers/misc/nicochristmann/kernelmodules/connectivity/conninfra/include
 ccflags-y += -I$(TOP)/drivers/misc/nicochristmann/kernelmodules/connectivity/conninfra/debug_utility
 ccflags-y += -I$(TOP)/drivers/misc/nicochristmann/kernelmodules/connectivity/conninfra/debug_utility/include
 ccflags-y += -I$(TOP)/drivers/misc/nicochristmann/kernelmodules/connectivity/conninfra/debug_utility/connsyslog
 ccflags-y += -I$(TOP)/drivers/misc/nicochristmann/kernelmodules/connectivity/conninfra/debug_utility/coredump
-endif
+
 
 ifneq ($(CONFIG_MTK_CONNSYS_DEDICATED_LOG_PATH),)
 ccflags-y += -DCONFIG_MTK_CONNSYS_DEDICATED_LOG_PATH
@@ -39,13 +38,9 @@ else
     ccflags-y += -DWMT_IDC_SUPPORT=0
 endif
 
-ifeq ($(CONNAC_VER), 2_0)
 ccflags-y += -DCFG_ANDORID_CONNINFRA_SUPPORT=1
 ccflags-y += -DCFG_ANDORID_CONNINFRA_COREDUMP_SUPPORT=1
-else
-ccflags-y += -DCFG_ANDORID_CONNINFRA_SUPPORT=0
-ccflags-y += -DCFG_ANDORID_CONNINFRA_COREDUMP_SUPPORT=0
-endif
+
 
 ccflags-y += -D MTK_WCN_WMT_STP_EXP_SYMBOL_ABSTRACT
 
