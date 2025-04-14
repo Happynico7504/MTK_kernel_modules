@@ -322,13 +322,6 @@ int32_t wifi_reset_end(enum ENUM_RESET_STATUS status)
 		WIFI_WARN_FUNC("WIFI state recovering...\n");
 
 		if (powered == 1) {
-			/* WIFI is on before whole chip reset, reopen it now */
-			/*
-			 * mtk_wland_thread_main will check this flag for current state.
-			 * if this flag is TRUE, mtk_wland_thread_main will not do power on again.
-			 * Set this flag to FALSE to finish the reset procedure
-			 */
-			
 		        WIFI_INFO_FUNC("WMT turn on WIFI success!\n");
 
 			if (pf_set_p2p_mode == NULL) {
@@ -433,7 +426,7 @@ ssize_t WIFI_write(struct file *filp, const char __user *buf, size_t count, loff
 				wlan_mode = WLAN_MODE_HALT;
 				goto done;
 			}
-
+			
 			netdev = dev_get_by_name(&init_net, ifname);
 			if (netdev == NULL) {
 				WIFI_ERR_FUNC("Fail to get %s net device\n", ifname);
@@ -453,16 +446,12 @@ ssize_t WIFI_write(struct file *filp, const char __user *buf, size_t count, loff
 				netdev = NULL;
 			}
 
-			if (mtk_wcn_wlan_func_ctrl(WLAN_OPID_FUNC_OFF) == MTK_WCN_BOOL_FALSE) {
-
-				WIFI_ERR_FUNC("WMT turn off WIFI fail!\n");
-			} else {
 				WIFI_INFO_FUNC("WMT turn off WIFI success!\n");
 				powered = 0;
 				retval = count;
 				wlan_mode = WLAN_MODE_HALT;
-			}
-		} else if (local[0] == '1') {
+		
+		        if (local[0] == '1') {
 			write_processing = 1;
 			if (powered == 1) {
 				WIFI_INFO_FUNC("WIFI is already power on!\n");
@@ -539,15 +528,9 @@ ssize_t WIFI_write(struct file *filp, const char __user *buf, size_t count, loff
 			}
 
 			if (powered == 0) {
-				/* If WIFI is off, turn on WIFI first */
-				if (mtk_wcn_wlan_func_ctrl(WLAN_OPID_FUNC_ON) == MTK_WCN_BOOL_FALSE) {
-					WIFI_ERR_FUNC("WMT turn on WIFI fail!\n");
-					goto done;
-				} else {
-					powered = 1;
-					WIFI_INFO_FUNC("WMT turn on WIFI success!\n");
-					wlan_mode = WLAN_MODE_HALT;
-				}
+				powered = 1;
+				WIFI_INFO_FUNC("WMT turn on WIFI success!\n");
+				wlan_mode = WLAN_MODE_HALT
 			}
 
 			if (pf_set_p2p_mode == NULL) {
