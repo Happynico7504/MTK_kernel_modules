@@ -56,6 +56,4 @@ $(MODULE_NAME)-objs += fw_log_wifi.o
 $(MODULE_NAME)-objs += fw_log_ics.o
 $(MODULE_NAME)-objs += wlan_ring.o
 endif
-ifeq ($(CONNAC_VER), 2_0)
 $(MODULE_NAME)-objs += wifi_pwr_on.o
-endif
