@@ -36,7 +36,7 @@
 
 #if (CFG_ANDORID_CONNINFRA_SUPPORT == 1)
 #include "fw_log_wifi.h"
-#include "conninfra.h"
+#include "../../conninfra/include/conninfra.h"
 #endif
 
 MODULE_LICENSE("Dual BSD/GPL");
