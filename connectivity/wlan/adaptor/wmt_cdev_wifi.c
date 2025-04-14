@@ -36,7 +36,7 @@
 #include "wifi_pwr_on.h"
 #include "../../common/common_main/include/wmt_exp.h"
 #include "../../common/common_main/include/stp_exp.h"
-#endif
+
 MODULE_LICENSE("Dual BSD/GPL");
 
 #define WIFI_DRIVER_NAME "mtk_wmt_wifi_chrdev"
