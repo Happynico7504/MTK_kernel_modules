@@ -885,3 +885,8 @@ module_init(WIFI_init);
 module_exit(WIFI_exit);
 
 #endif
+
+EXPORT_SYMBOL(wifi_pwr_on_init);
+EXPORT_SYMBOL(wifi_pwr_on_deinit);
+EXPORT_SYMBOL(mtk_wcn_wlan_func_ctrl);
+EXPORT_SYMBOL(g_fgIsWiFiOn);
