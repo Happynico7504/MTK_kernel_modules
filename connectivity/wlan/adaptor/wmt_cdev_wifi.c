@@ -458,14 +458,11 @@ ssize_t WIFI_write(struct file *filp, const char __user *buf, size_t count, loff
 				retval = count;
 				goto done;
 			}
-			if (mtk_wcn_wlan_func_ctrl(WLAN_OPID_FUNC_ON) == MTK_WCN_BOOL_FALSE) {
-				WIFI_ERR_FUNC("WMT turn on WIFI fail!\n");
-			} else {
 				powered = 1;
 				retval = count;
 				WIFI_INFO_FUNC("WMT turn on WIFI success!\n");
 				wlan_mode = WLAN_MODE_HALT;
-			}
+				
 		} else if (!strncmp(local, "WR-BUF:", 7)) {
 			file_buf_handler handler = NULL;
 			void *ctx = NULL;
