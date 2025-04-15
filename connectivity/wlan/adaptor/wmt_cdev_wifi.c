@@ -324,10 +324,6 @@ int32_t wifi_reset_end(enum ENUM_RESET_STATUS status)
 		if (powered == 1) {
 		        WIFI_INFO_FUNC("WMT turn on WIFI success!\n");
 
-			if (pf_set_p2p_mode == NULL) {
-				WIFI_ERR_FUNC("Set p2p mode handler is NULL\n");
-				goto done;
-			}
 
 			netdev = dev_get_by_name(&init_net, ifname);
 			wait_cnt = 0;
@@ -529,11 +525,6 @@ ssize_t WIFI_write(struct file *filp, const char __user *buf, size_t count, loff
 				powered = 1;
 				WIFI_INFO_FUNC("WMT turn on WIFI success!\n");
 				wlan_mode = WLAN_MODE_HALT;
-			}
-
-			if (pf_set_p2p_mode == NULL) {
-				WIFI_ERR_FUNC("Set p2p mode handler is NULL\n");
-				goto done;
 			}
 
 			netdev = dev_get_by_name(&init_net, ifname);
