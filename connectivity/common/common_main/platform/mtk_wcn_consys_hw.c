@@ -88,8 +88,10 @@ P_WMT_CONSYS_IC_OPS wmt_consys_ic_ops;
 struct platform_device *g_pdev;
 
 #ifdef ALLOCATE_CONNSYS_EMI_FROM_KO
-extern phys_addr_t gConEmiPhyBase;
-extern unsigned long long gConEmiSize;
+phys_addr_t gConEmiPhyBase;
+EXPORT_SYMBOL(gConEmiPhyBase);
+unsigned long long gConEmiSize;
+EXPORT_SYMBOL(gConEmiSize);
 #endif
 
 UINT32 gps_lna_pin_num = 0xffffffff;
