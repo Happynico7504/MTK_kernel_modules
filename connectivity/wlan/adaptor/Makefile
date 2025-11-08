@@ -25,13 +25,6 @@ ccflags-y += -I$(TOP)/drivers/misc/nicochristmann/kernelmodules/connectivity/con
 ccflags-y += -I$(TOP)/drivers/misc/nicochristmann/kernelmodules/connectivity/conninfra/debug_utility/connsyslog
 ccflags-y += -I$(TOP)/drivers/misc/nicochristmann/kernelmodules/connectivity/conninfra/debug_utility/coredump
 
-
-ifneq ($(CONFIG_MTK_CONNSYS_DEDICATED_LOG_PATH),)
-ccflags-y += -DCONFIG_MTK_CONNSYS_DEDICATED_LOG_PATH
-ccflags-y += -I$(TOP)/vendor/mediatek/kernel_modules/connectivity/common/debug_utility
-ccflags-y += -I$(src)/include
-endif
-
 ifeq ($(CONFIG_MTK_CONN_LTE_IDC_SUPPORT),y)
     ccflags-y += -DWMT_IDC_SUPPORT=1
 else
