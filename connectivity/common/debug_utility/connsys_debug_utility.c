@@ -108,8 +108,11 @@ static size_t cache_size_table[CONNLOG_TYPE_END];
 ********************************************************************************
 */
 static int connlog_eirq_init(const struct connlog_irq_config *irq_config);
+static void connlog_eirq_deinit(void);
 static int connlog_emi_init(phys_addr_t emi_base, const struct connlog_emi_config *emi_config);
+static void connlog_emi_deinit(void);
 static int connlog_ring_buffer_init(void);
+static void connlog_ring_buffer_deinit(void);
 static int connlog_set_ring_buffer_base_addr(void);
 static irqreturn_t connlog_eirq_isr(int irq, void *arg);
 static void connlog_set_ring_ready(void);
@@ -826,6 +829,10 @@ static int connlog_eirq_init(const struct connlog_irq_config *irq_config)
 * RETURNS
 *  void
 *****************************************************************************/
+static void connlog_eirq_deinit(void)
+{
+	free_irq(gDev.conn2ApIrqId, NULL);
+}
 
 /*****************************************************************************
 * FUNCTION
@@ -945,6 +952,10 @@ static int connlog_emi_init(phys_addr_t emi_base, const struct connlog_emi_confi
 * RETURNS
 *  void
 *****************************************************************************/
+static void connlog_emi_deinit(void)
+{
+	iounmap(gDev.virAddrEmiLogBase);
+}
 
 /*****************************************************************************
 * FUNCTION
@@ -990,6 +1001,17 @@ static int connlog_ring_buffer_init(void)
 * RETURNS
 *  void
 *****************************************************************************/
+static void connlog_ring_buffer_deinit(void)
+{
+	int i = 0;
+
+	for (i = 0; i < CONNLOG_TYPE_END; i++) {
+		kvfree(connlog_buffer_table[i].cache_base);
+		connlog_buffer_table[i].cache_base = NULL;
+	}
+	kvfree(gDev.log_data);
+	gDev.log_data = NULL;
+}
 
 /*****************************************************************************
 * FUNCTION
@@ -1004,7 +1026,47 @@ static int connlog_ring_buffer_init(void)
 * RETURNS
 *  void
 *****************************************************************************/
-extern int connsys_dedicated_log_path_apsoc_init(phys_addr_t emiaddr, const struct connlog_emi_config* config);
+int connsys_dedicated_log_path_apsoc_init(
+	phys_addr_t emi_base,
+	const struct connlog_emi_config *emi_config,
+	const struct connlog_irq_config *irq_config)
+{
+	gDev.phyAddrEmiBase = 0;
+	gDev.virAddrEmiLogBase = 0;
+	gDev.conn2ApIrqId = 0;
+	gDev.eirqOn = false;
+	gDev.irq_counter = 0;
+	gDev.irq_callback = NULL;
+	memset(&gDev.emi_config, 0, sizeof(struct connlog_emi_config));
+
+	if (connlog_emi_init(emi_base, emi_config)) {
+		pr_err("EMI init failed\n");
+		return -1;
+	}
+
+	if (connlog_ring_buffer_init()) {
+		pr_err("Ring buffer init failed\n");
+		return -2;
+	}
+
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 15, 0))
+	timer_setup(&gDev.workTimer, work_timer_handler, 0);
+#else
+	init_timer(&gDev.workTimer);
+#endif
+	gDev.workTimer.function = work_timer_handler;
+	spin_lock_init(&gDev.irq_lock);
+	INIT_WORK(&gDev.logDataWorker, connlog_log_data_handler);
+	if (connlog_eirq_init(irq_config)) {
+		pr_err("EIRQ init failed\n");
+		return -3;
+	}
+
+	/* alarm_timer */
+	connlog_alarm_init();
+	return 0;
+}
+EXPORT_SYMBOL(connsys_dedicated_log_path_apsoc_init);
 
 /*****************************************************************************
 * FUNCTION
@@ -1017,7 +1079,13 @@ extern int connsys_dedicated_log_path_apsoc_init(phys_addr_t emiaddr, const stru
 * RETURNS
 *  void
 *****************************************************************************/
-extern void connsys_dedicated_log_path_apsoc_deinit(void);
+void connsys_dedicated_log_path_apsoc_deinit(void)
+{
+	connlog_emi_deinit();
+	connlog_eirq_deinit();
+	connlog_ring_buffer_deinit();
+}
+EXPORT_SYMBOL(connsys_dedicated_log_path_apsoc_deinit);
 
 /*****************************************************************************
 * FUNCTION
@@ -1029,7 +1097,12 @@ extern void connsys_dedicated_log_path_apsoc_deinit(void);
 * RETURNS
 *  int    0=success, others=error
 *****************************************************************************/
-extern int connsys_log_init(int conn_type);
+int connsys_log_init(int conn_type)
+{
+	return 0;
+}
+EXPORT_SYMBOL(connsys_log_init);
+
 /*****************************************************************************
 * FUNCTION
 *  connsys_log_deinit
@@ -1040,7 +1113,14 @@ extern int connsys_log_init(int conn_type);
 * RETURNS
 *  int    0=success, others=error
 *****************************************************************************/
-extern int connsys_log_deinit(int conn_type);
+int connsys_log_deinit(int conn_type)
+{
+	if (conn_type >= CONNLOG_TYPE_END || conn_type < 0)
+		return -1;
+	event_callback_table[conn_type] = 0x0;
+	return 0;
+}
+EXPORT_SYMBOL(connsys_log_deinit);
 
 /*****************************************************************************
 * FUNCTION
@@ -1052,7 +1132,13 @@ extern int connsys_log_deinit(int conn_type);
 * RETURNS
 *  unsigned int    Ring buffer unread size
 *****************************************************************************/
-extern unsigned int connsys_log_get_buf_size(int conn_type);
+unsigned int connsys_log_get_buf_size(int conn_type)
+{
+	if (conn_type >= CONNLOG_TYPE_END || conn_type < 0)
+		return -1;
+	return RING_SIZE(&connlog_buffer_table[conn_type].ring_cache);
+}
+EXPORT_SYMBOL(connsys_log_get_buf_size);
 
 /*****************************************************************************
 * FUNCTION
@@ -1065,7 +1151,14 @@ extern unsigned int connsys_log_get_buf_size(int conn_type);
 * RETURNS
 *  int    0=success, others=error
 *****************************************************************************/
-extern int connsys_log_register_event_cb(int conn_type, CONNLOG_EVENT_CB func);
+int connsys_log_register_event_cb(int conn_type, CONNLOG_EVENT_CB func)
+{
+	if (conn_type >= CONNLOG_TYPE_END || conn_type < 0)
+		return -1;
+	event_callback_table[conn_type] = func;
+	return 0;
+}
+EXPORT_SYMBOL(connsys_log_register_event_cb);
 
 /*****************************************************************************
 * FUNCTION
@@ -1079,7 +1172,38 @@ extern int connsys_log_register_event_cb(int conn_type, CONNLOG_EVENT_CB func);
 * RETURNS
 *  ssize_t    read buffer size
 *****************************************************************************/
-extern ssize_t connsys_log_read(int conn_type, char *buf, size_t count);
+ssize_t connsys_log_read(int conn_type, char *buf, size_t count)
+{
+	unsigned int written = 0;
+	unsigned int cache_buf_size;
+	struct ring_segment ring_seg;
+	struct ring *ring;
+	unsigned int size = 0;
+
+	if (conn_type < 0 || conn_type >= CONNLOG_TYPE_END)
+		return 0;
+
+	ring = &connlog_buffer_table[conn_type].ring_cache;
+
+	if (atomic_read(&log_mode) != LOG_TO_FILE)
+		goto done;
+
+	size = count < RING_SIZE(ring) ? count : RING_SIZE(ring);
+	if (RING_EMPTY(ring) || !ring_read_prepare(size, &ring_seg, ring)) {
+		pr_err("type(%d) no data, possibly taken by concurrent reader.\n", conn_type);
+		goto done;
+	}
+	cache_buf_size = ring_seg.remain;
+
+	RING_READ_FOR_EACH(size, ring_seg, ring) {
+		memcpy(buf + written, ring_seg.ring_pt, ring_seg.sz);
+		cache_buf_size -= ring_seg.sz;
+		written += ring_seg.sz;
+	}
+done:
+	return written;
+}
+EXPORT_SYMBOL(connsys_log_read);
 
 /*****************************************************************************
 * FUNCTION
@@ -1093,8 +1217,47 @@ extern ssize_t connsys_log_read(int conn_type, char *buf, size_t count);
 * RETURNS
 *  ssize_t    read buffer size
 *****************************************************************************/
-extern ssize_t connsys_log_read_to_user(int conn_type, char __user *buf, size_t count);
+ssize_t connsys_log_read_to_user(int conn_type, char __user *buf, size_t count)
+{
+	int retval;
+	unsigned int written = 0;
+	static DEFINE_RATELIMIT_STATE(_rs, 10 * HZ, 1);
+	unsigned int cache_buf_size;
+	struct ring_segment ring_seg;
+	struct ring *ring;
+	unsigned int size = 0;
 
+	ratelimit_set_flags(&_rs, RATELIMIT_MSG_ON_RELEASE);
+
+	if (conn_type < 0 || conn_type >= CONNLOG_TYPE_END)
+		return 0;
+
+	ring = &connlog_buffer_table[conn_type].ring_cache;
+
+	if (atomic_read(&log_mode) != LOG_TO_FILE)
+		goto done;
+
+	size = count < RING_SIZE(ring) ? count : RING_SIZE(ring);
+	if (RING_EMPTY(ring) || !ring_read_prepare(size, &ring_seg, ring)) {
+		pr_err("type(%d) no data, possibly taken by concurrent reader.\n", conn_type);
+		goto done;
+	}
+	cache_buf_size = ring_seg.remain;
+
+	RING_READ_FOR_EACH(size, ring_seg, ring) {
+		retval = copy_to_user(buf + written, ring_seg.ring_pt, ring_seg.sz);
+		if (retval) {
+			if (__ratelimit(&_rs))
+				pr_err("copy to user buffer failed, ret:%d\n", retval);
+			goto done;
+		}
+		cache_buf_size -= ring_seg.sz;
+		written += ring_seg.sz;
+	}
+done:
+	return written;
+}
+EXPORT_SYMBOL(connsys_log_read_to_user);
 
 /*****************************************************************************
 * FUNCTION
@@ -1220,4 +1383,3 @@ int connsys_dedicated_log_set_ap_state(int state)
 	EMI_WRITE32(gDev.virAddrEmiLogBase + 32,  state);
 	return 0;
 }
-
