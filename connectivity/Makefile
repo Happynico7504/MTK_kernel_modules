@@ -1,6 +1,6 @@
 obj-m        += common/
 
-obj-m        += bt/
+obj-n        += bt/
 
 obj-m        += connfem/
 
