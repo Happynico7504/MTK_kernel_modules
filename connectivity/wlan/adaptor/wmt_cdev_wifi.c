@@ -33,10 +33,12 @@
 #ifdef CONFIG_MTK_CONNSYS_DEDICATED_LOG_PATH
 #include "fw_log_ics.h"
 #endif
+#if (CFG_ANDORID_CONNINFRA_SUPPORT == 1)
 #include "wifi_pwr_on.h"
-#include "../../common/common_main/include/wmt_exp.h"
-#include "../../common/common_main/include/stp_exp.h"
-
+#else
+#include "wmt_exp.h"
+#include "stp_exp.h"
+#endif
 MODULE_LICENSE("Dual BSD/GPL");
 
 #define WIFI_DRIVER_NAME "mtk_wmt_wifi_chrdev"

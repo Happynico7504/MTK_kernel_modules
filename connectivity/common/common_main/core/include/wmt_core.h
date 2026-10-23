@@ -22,10 +22,10 @@
 #ifndef _WMT_CORE_H_
 #define _WMT_CORE_H_
 
-#include "../../core/include/wmt_ctrl.h"
-#include "../../include/wmt_exp.h"
-#include "../../include/wmt_plat.h"
-#include "../../linux/include/osal.h"
+#include "wmt_ctrl.h"
+#include "wmt_exp.h"
+#include "wmt_plat.h"
+#include "osal.h"
 /*******************************************************************************
 *                         C O M P I L E R   F L A G S
 ********************************************************************************

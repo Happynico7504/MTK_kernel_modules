@@ -21,9 +21,9 @@
 #define _WMT_EXP_H_
 
 #include <mtk_wcn_cmb_stub.h>
-#include "../linux/include/osal.h"
+#include "osal.h"
 #include "wmt_plat.h"
-#include "../linux/include/osal_typedef.h"
+#include "osal_typedef.h"
 /* not to reference to internal wmt */
 /* #include "wmt_core.h" */
 /*******************************************************************************

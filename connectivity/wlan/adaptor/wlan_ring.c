@@ -4,7 +4,7 @@
  * Copyright (c) 2021 MediaTek Inc.
  */
 
-#include "../../conninfra/base/include/ring.h"
+#include "ring.h"
 #include <linux/string.h>
 #include <linux/kernel.h>
 #include <linux/bug.h>

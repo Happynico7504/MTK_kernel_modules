@@ -20,7 +20,7 @@ LOCAL_PROPRIETARY_MODULE := true
 LOCAL_MODULE_OWNER := mtk
 LOCAL_INIT_RC := init.wlan_mt7668_drv.rc
 LOCAL_SRC_FILES := $(patsubst $(LOCAL_PATH)/%,%,$(shell find $(LOCAL_PATH) -type f -name '*.[cho]')) Makefile
-LOCAL_REQUIRED_MODULES := wmt_chrdev_wifi.ko
+#LOCAL_REQUIRED_MODULES := wmt_chrdev_wifi.ko
 include $(MTK_KERNEL_MODULE)
 
 
@@ -34,7 +34,7 @@ $(linked_module): OPTS += $(WIFI_OPTS)
 #LOCAL_EXPORT_SYMBOL := $(intermediates)/LINKED/Module.symvers
 #$(LOCAL_EXPORT_SYMBOL): $(intermediates)/LINKED/% : $(LOCAL_SRC_EXPORT_SYMBOL)
 #	$(copy-file-to-target)
-#$(linked_module): $(LOCAL_EXPORT_SYMBOL) $(LOCAL_SRC_EXPORT_SYMBOL) $(AUTO_CONF) include/generated/autoconf.h
+#$(linked_module): $(LOCAL_EXPORT_SYMBOL) $(LOCAL_SRC_EXPORT_SYMBOL) $(AUTO_CONF) $(AUTOCONF_H)
 endif
 endif
 endif

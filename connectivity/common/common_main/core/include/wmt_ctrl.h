@@ -21,8 +21,8 @@
 #ifndef _WMT_CTRL_H_
 #define _WMT_CTRL_H_
 
-#include "../../linux/include/osal.h"
-#include "../../include/stp_exp.h"
+#include "osal.h"
+#include "stp_exp.h"
 /*******************************************************************************
 *                         C O M P I L E R   F L A G S
 ********************************************************************************

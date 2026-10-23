@@ -21,7 +21,7 @@
 #define _MTK_WCN_CONSYS_HW_H_
 
 /*#include <mt_reg_base.h>*/
-#include "../../include/wmt_plat.h"
+#include "wmt_plat.h"
 
 /*device tree mode*/
 #ifdef CONFIG_OF

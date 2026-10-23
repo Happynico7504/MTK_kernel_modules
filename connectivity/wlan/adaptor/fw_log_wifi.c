@@ -32,11 +32,11 @@
 #include <linux/string.h>
 #include <linux/workqueue.h>
 
-#include "../../common/debug_utility/connsys_debug_utility.h"
+#include "connsys_debug_utility.h"
 
 #if (CFG_ANDORID_CONNINFRA_SUPPORT == 1)
 #include "fw_log_wifi.h"
-#include "../../conninfra/include/conninfra.h"
+#include "conninfra.h"
 #endif
 
 MODULE_LICENSE("Dual BSD/GPL");

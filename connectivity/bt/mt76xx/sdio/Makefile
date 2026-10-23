@@ -4,12 +4,12 @@
 ###############################################################################
 # Necessary Check
 
-# ifeq ($(AUTOCONF_H),)
-#     $(error AUTOCONF_H is not defined)
-# endif
+ifeq ($(AUTOCONF_H),)
+    $(error AUTOCONF_H is not defined)
+endif
 
-ccflags-y += -imacros include/generated/autoconf.h
-ccflags-n += -DCONFIG_MP_WAKEUP_SOURCE_SYSFS_STAT
+ccflags-y += -imacros $(AUTOCONF_H)
+ccflags-y += -DCONFIG_MP_WAKEUP_SOURCE_SYSFS_STAT
 
 MODULE_NAME := btmtksdio
 obj-m += $(MODULE_NAME).o
