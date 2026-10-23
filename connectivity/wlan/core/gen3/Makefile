@@ -2,11 +2,10 @@ MTK_PLATFORM := $(subst ",,$(CONFIG_MTK_PLATFORM))
 ###############################################################################
 # Necessary Check
 
-ifeq ($(AUTOCONF_H),)
-    $(error AUTOCONF_H is not defined)
-endif
-
+# kbuild already includes autoconf.h, only needed for external builds
+ifneq ($(AUTOCONF_H),)
 ccflags-y += -imacros $(AUTOCONF_H)
+endif
 
 # Force build fail on modpost warning
 KBUILD_MODPOST_FAIL_ON_WARNINGS := y
@@ -15,7 +14,7 @@ KBUILD_MODPOST_FAIL_ON_WARNINGS := y
 # ---------------------------------------------------
 # Compile Options
 # ---------------------------------------------------
-ifneq ($(filter "CONSYS_6797" "CONSYS_6759" "CONSYS_6758" "CONSYS_6775" "CONSYS_6771", $(CONFIG_MTK_COMBO_CHIP)),)
+ifneq ($(filter "CONSYS_6797" "CONSYS_6759" "CONSYS_6758" "CONSYS_6775" "CONSYS_6771" "CONSYS_6761", $(CONFIG_MTK_COMBO_CHIP)),)
 WLAN_CHIP_ID=MT6631
 else
 WLAN_CHIP_ID=MT6630
@@ -96,14 +95,11 @@ endif
 ccflags-y += -I$(src)/include -I$(src)/include/nic -I$(src)/include/mgmt
 ccflags-y += -I$(srctree)/drivers/misc/mediatek/base/power/include
 
-WMT_ANDROID_MK := $(TOP)/vendor/mediatek/kernel_modules/connectivity/common/Android.mk
-ifeq (,$(wildcard $(WMT_ANDROID_MK)))
-ccflags-y += -I$(srctree)/drivers/misc/mediatek/connectivity/common/common_main/include
-ccflags-y += -I$(srctree)/drivers/misc/mediatek/connectivity/common/common_main/linux/include
-else
-ccflags-y += -I$(TOP)/vendor/mediatek/kernel_modules/connectivity/common/common_main/include
-ccflags-y += -I$(TOP)/vendor/mediatek/kernel_modules/connectivity/common/common_main/linux/include
-endif
+# connectivity/ relative to this directory, works wherever the tree is copied
+KO_CODE_PATH := $(if $(filter /%,$(src)),,$(srctree)/)$(src)
+CONN_PATH := $(KO_CODE_PATH)/../../..
+ccflags-y += -I$(CONN_PATH)/common/common_main/include
+ccflags-y += -I$(CONN_PATH)/common/common_main/linux/include
 ccflags-y += -I$(srctree)/drivers/misc/mediatek/connectivity/common/
 ccflags-y += -D MTK_WCN_WMT_STP_EXP_SYMBOL_ABSTRACT
 
